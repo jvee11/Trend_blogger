@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Editor - Trend Blogger</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100">
+    <header>
+        <div class="nav container flex justify-between items-center p-4 bg-gray-800 text-white">
+            <a href="index.html" class="logo text-2xl">Code <span>Jv</span></a>
+            <a id="userLogoLink" href="index.html" class="hidden">
+                <img id="userLogo" src="icons8-user-50.png" alt="User Logo" class="h-8 w-8 rounded-full">
+            </a>
+            <a href="login.html" class="login bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Login</a>
+        </div>
+    </header>
+
+    <section class="container mx-auto mt-10">
+        <h1 class="text-3xl font-bold text-center mb-6">Write Your Blog</h1>
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <form id="blogForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Blog Title</label>
+                    <input type="text" id="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your blog title" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="content">Content</label>
+                    <textarea id="content" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-40" placeholder="Write your blog here..." required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="image">Upload Cover Image</label>
+                    <input type="file" id="image" accept="image/*" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Publish</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('blogForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get blog data
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            // Save the blog post to localStorage
+            const blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+            blogs.push({ title, content, date: new Date().toLocaleString() });
+            localStorage.setItem('blogs', JSON.stringify(blogs));
+
+            alert('Blog published successfully!');
+            window.location.href = 'index.html'; // Redirect to homepage or blog list page
+        });
+    </script>
+</body>
+</html>
